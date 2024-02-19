@@ -192,7 +192,6 @@ def saveObtainableCards():
        
     for i in range(len(cardList)):
         for card in cardList[i]:
-            print("word")
             if i == 0:
                 commons = (commons + card + "|")
             if i == 1:
