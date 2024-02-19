@@ -378,19 +378,23 @@ def printDeck(deck):
     for i in headers:
         i.style.display = "inline"
     
-    commonCards = document.getElementById("commonCards")    
+    commonCards = document.getElementById("commonCards")
+    commonCards.textContent = ""
     for i in deck[0]:
         commonCards.textContent += f"{i}, "
     
-    rareCards = document.getElementById("rareCards")    
+    rareCards = document.getElementById("rareCards")
+    rareCards.textContent = ""
     for i in deck[1]:
         rareCards.textContent += f"{i}, "
 
-    ultraCards = document.getElementById("ultraCards")    
+    ultraCards = document.getElementById("ultraCards")
+    ultraCards.textContent = ""
     for i in deck[2]:
         ultraCards.textContent += f"{i}, "
 
-    legendaryCards = document.getElementById("legendaryCards")    
+    legendaryCards = document.getElementById("legendaryCards")
+    legendaryCards.textContent = ""
     for i in deck[3]:
         legendaryCards.textContent += f"{i}, "
 # ----------
