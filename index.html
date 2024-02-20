@@ -61,6 +61,30 @@
         .rarityHeader {
             display: none;
         }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            width: 120px;
+            top: 0px;
+            right: 110%;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
         </style>
         
 
@@ -71,8 +95,12 @@
         <div class="wrapper">
         
         <div class="top">
-            <input type="radio" py-click="show_rarity" name="showSelector" id="rarityRad"><label>select by rarity</label>
-            <input type="radio" py-click="show_total" name="showSelector" id="totalRad"><label>select overall</label>
+            <input type="radio" py-click="show_rarity" name="showSelector" id="rarityRad"><label class="tooltip">generate by rarities
+                <span class="tooltiptext">Generate a deck by selecting the amount of cards of each rarity</span>
+            </label>
+            <input type="radio" py-click="show_total" name="showSelector" id="totalRad"><label  class="tooltip">generate by deck size
+                <span class="tooltiptext">Generate a deck by selecting the amount of overall cards of any rarity</span>
+            </label>
             
             <div id="rarityBoxes">
                 <input type="text" id="box1" maxlength="2" size="2" placeholder="00"><label>common</label>
@@ -103,7 +131,9 @@
                         pass
             </script>
             
-            <button  py-click="add_item" id="append-button">add to list</button>
+            <button  py-click="add_item" id="append-button" class="tooltip">add to blacklist
+                <span class="tooltiptext">Add cards to a blacklist to prevent them from being selected</span>
+            </button>
 
             <ul id="blacklist">
             </ul>
