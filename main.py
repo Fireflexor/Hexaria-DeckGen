@@ -106,6 +106,7 @@ def getPagesInCategory(api, category):
     }
 
     response = requests.get(apiUrl, params = apiParams)
+    
 
     while "continue" in response.json():
         apiParams.update({"cmcontinue": response.json()["continue"]["cmcontinue"]})
@@ -118,7 +119,6 @@ def getPagesInCategory(api, category):
     pages = response.json()["query"]["categorymembers"]
     for i in pages:
         obtainableCards.append(i["title"])
-    response = requests.get(apiUrl, params = apiParams)
 
 
     return(obtainableCards)
