@@ -3,8 +3,10 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <title>Deck Generator</title>
+        <title>Testing</title>
         <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <style>
         
         li {
@@ -30,16 +32,10 @@
             display: inline-block;
         }
         
-        #deckGenButton {
-            position: absolute;
-            bottom: 0;
-        }
-        
         .wrapper {
             display: grid;
             grid-template-columns: 1fr 4fr;
-            grid-template-rows: 100px 400px;
-            position: relative;
+            grid-template-rows: 100px 300px;
         }
         
         .left {
@@ -57,60 +53,31 @@
         .top {
             background: #cccccc;
         }
-        
-        .rarityHeader {
-            display: none;
-        }
-        
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-            width: 120px;
-            top: 0px;
-            right: 110%;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-        }
         </style>
         
 
     </head>
     <body>
         <script type="py" src="./main.py" config="./pyscript.json"></script>
+
+        <h1>Testing Program</h1>
+
         
         <div class="wrapper">
         
         <div class="top">
-            <input type="radio" py-click="show_rarity" name="showSelector" id="rarityRad"><label class="tooltip">generate by rarities
-                <span class="tooltiptext">Generate a deck by selecting the amount of cards of each rarity</span>
-            </label>
-            <input type="radio" py-click="show_total" name="showSelector" id="totalRad"><label  class="tooltip">generate by deck size
-                <span class="tooltiptext">Generate a deck by selecting the amount of overall cards of any rarity</span>
-            </label>
+            <input type="radio" py-click="show_rarity" name="showSelector" id="rarityRad"><label>select by rarity</label>
+            <input type="radio" py-click="show_total" name="showSelector" id="totalRad"><label>select overall</label>
             
             <div id="rarityBoxes">
-                <input type="text" id="box1" maxlength="2" size="2" placeholder="00"><label>common</label>
-                <input type="text" id="box2" maxlength="2" size="2" placeholder="00"><label>rare</label>
-                <input type="text" id="box3" maxlength="2" size="2" placeholder="00"><label>ultra</label>
-                <input type="text" id="box4" maxlength="2" size="2" placeholder="00"><label>legendary</label>
+                <input type="text" id="box1" maxlength="2" size="2"><label>common</label>
+                <input type="text" id="box2" maxlength="2" size="2"><label>rare</label>
+                <input type="text" id="box3" maxlength="2" size="2"><label>ultra</label>
+                <input type="text" id="box4" maxlength="2" size="2"><label>legendary</label>
             </div>
 
             <div id="overallBox">
-                <input type="text" id="box5" maxlength="2" size="2" placeholder="00"><label>deck size</label>
+                <input type="text" id="box5" maxlength="2" size="2"><label>deck size</label>
             </div>
         </div>
         
@@ -131,26 +98,15 @@
                         pass
             </script>
             
-            <button  py-click="add_item" id="append-button" class="tooltip">add to blacklist
-                <span class="tooltiptext">Add cards to a blacklist to prevent them from being selected</span>
-            </button>
+            <button  py-click="add_item" id="append-button">add to list</button>
 
             <ul id="blacklist">
             </ul>
         </div>
         
         <div class="bottom">
-            <p class = "rarityHeader"><b>Common</b></p>
-            <p id="commonCards"></p>
-            <p class = "rarityHeader"><b>Rare</b></p>
-            <p id="rareCards"></p>
-            <p class = "rarityHeader"><b>Ultra Rare</b></p>
-            <p id="ultraCards"></p>
-            <p class = "rarityHeader"><b>Legendary</b></p>
-            <p id="legendaryCards"></p>
-            <button id="deckGenButton"  py-click="generateDeck">Generate Deck</button>
         </div>
-            
+            <button  py-click="generateDeck">BALL</button>
         </div>
         
     </body>
