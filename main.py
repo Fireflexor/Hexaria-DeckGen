@@ -3,6 +3,7 @@
 # -------
 
 from pyscript import document
+from js import window
 from js import localStorage
 import pyodide_http
 import requests
@@ -335,7 +336,7 @@ def generateDeck(event):
           
 
     else:
-        print("Neither generation option was selected")
+        window.alert("Neither generation option was selected")
         return
       
 
@@ -350,7 +351,7 @@ limits[3] <= len(cleanCardList[3])*1
     if all(conditions):
         validLimits = True
     else:
-        print("Total deck size exceeds 50 cards or exceeds the number of available cards in a category")
+        window.alert("Total deck size exceeds 50 cards or exceeds the number of available cards in a category")
         return
     
     # enumerate iterates through the items and keeps track of the iteration
@@ -400,8 +401,6 @@ def printDeck(deck):
 # ----------
 # MAIN STUFF
 # ----------
-
-#print("if this isn't here you gotta clear the cache") # simply a testing messsage to show if the cache updated
 
 pyodide_http.patch_all() # patching stuff to make it work in pyscript
 
