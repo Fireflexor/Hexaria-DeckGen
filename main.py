@@ -338,7 +338,9 @@ def generateDeck(event):
     else:
         window.alert("Neither generation option was selected")
         return
-      
+    if deckSize < 1:
+        window.alert("Deck size would be zero or less, please make deck size be 1-50")
+        return
 
     conditions = [
 deckSize <= 50,
