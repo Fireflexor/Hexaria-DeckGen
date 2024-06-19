@@ -138,6 +138,7 @@ def getObtainableCards():
     wikiCards = getPagesInCategory(wiki, "Category:Card")
     unobCardList = getPagesInCategory(wiki, "Category:Unobtainable")
 
+    print("i think things broken")
     # removing unobtainable cards from the obtainable list
     for i in wikiCards[:]:
         if i in unobCardList:
