@@ -142,11 +142,16 @@ def getObtainableCards():
     for i in wikiCards[:]:
         if i in unobCardList:
             wikiCards.remove(i)
+            print(i)
   
     wikiCards.remove("Cards List")    # manually removing some exceptions
+    print("1")
     wikiCards.remove("Envenomed Tokens")
+    print("2")
     wikiCards.remove("Inflamed Tokens")
+    print("3")
     wikiCards.remove("Tomes")
+    print("4")
     
     for card in wikiCards:
         rarity = getRarity(card)
