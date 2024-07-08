@@ -141,7 +141,6 @@ def getObtainableCards():
     # removing unobtainable cards from the obtainable list
     for i in wikiCards[:]:
         if i in unobCardList:
-            print(i)
             wikiCards.remove(i)
   
     wikiCards.remove("Cards List")    # manually removing some exceptions
@@ -150,6 +149,7 @@ def getObtainableCards():
     
     for card in wikiCards:
         rarity = getRarity(card)
+	print(rarity)
         cardList[rarity].append(card)
 
 
