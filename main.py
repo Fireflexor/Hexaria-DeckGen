@@ -149,7 +149,7 @@ def getObtainableCards():
     
     for card in wikiCards:
         rarity = getRarity(card)
-	print(rarity)
+        print(rarity)
         cardList[rarity].append(card)
 
 
