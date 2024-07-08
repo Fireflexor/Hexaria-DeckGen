@@ -149,8 +149,10 @@ def getObtainableCards():
     
     for card in wikiCards:
         rarity = getRarity(card)
-        print(rarity)
-        cardList[rarity].append(card)
+        if rarity == None:
+            print(f"{card} does not have an assigned rarity")
+        else:
+            cardList[rarity].append(card)
 
 
 # ----------------------------------------
