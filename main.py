@@ -3,12 +3,12 @@
 # -------
 
 from pyscript import document
-from js import window
-from js import localStorage
+from js import window, localStorage, navigator
 import pyodide_http
 import requests
 import time
 import random as rand
+import json
 
 # ----------------
 # DEFINING GLOBALS
@@ -280,7 +280,6 @@ def generateDeck(event):
     global blacklist
     global cardList
 
-    validLimits = False
     validDeck = False
     deck = [[],[],[],[]]
     limits = [0, 0, 0, 0]    # (commonLimit, rareLimit, ultraLimit, legendaryLimit)
@@ -292,7 +291,7 @@ def generateDeck(event):
     document.getElementById("box4").value,
     document.getElementById("box5").value]
 
-        
+    # removing the blacklisted cards from the clean cardlist
     for card in blacklist:
         for i in range(len(cleanCardList)):
             if card in cleanCardList[i]:
@@ -301,27 +300,28 @@ def generateDeck(event):
     rarityChecked = document.getElementById("rarityRad").checked
     totalChecked = document.getElementById("totalRad").checked
 
-
+    # defaulting user inputted values to 0
     for i in range(len(vals)):
         if vals[i] == '':
             vals[i] = 0
 
-    
+    # getting deck generation parameters by rarity
     if rarityChecked == True:
         limits = [
         int(vals[0]),
         int(vals[1]),
         int(vals[2]),
         int(vals[3])
-        ]    # assigning the variables in the string
+        ]    # assigning the values in the string
         deckSize = sum(limits)
+
+        # getting deck generation parameters by deck size. picks numbers at random and uses that to create limits
     elif totalChecked == True:
         deckSize = int(vals[4])
         
         commonLen = len(cleanCardList[0])
         rareLen = len(cleanCardList[1])
         ultraLen = len(cleanCardList[2])
-        legendaryLen = len(cleanCardList[3])
         
         for i in range(0,deckSize):
             pickedCard = rand.randint(0,len(sum(cleanCardList,[])))
@@ -335,8 +335,7 @@ def generateDeck(event):
             else:
                 limits[3] += 1
             
-          
-
+    # making sure entered parameters will create a valid deck
     else:
         window.alert("Neither generation option was selected")
         return
@@ -353,11 +352,12 @@ limits[3] <= len(cleanCardList[3])*1
     ]
       
     if all(conditions):
-        validLimits = True
+        pass
     else:
-        window.alert("Total deck size exceeds 50 cards or exceeds the number of available cards in a category")
+        window.alert("Total deck size exceeds 50 cards or exceeds the number of available cards in a rarity category")
         return
     
+    # the actual generating the deck part
     # enumerate iterates through the items and keeps track of the iteration
     for i, limit in enumerate(limits):
         validDeck = False    # resetting this after each rarity is done
@@ -366,7 +366,7 @@ limits[3] <= len(cleanCardList[3])*1
             card = cleanCardList[i][rand.randint(0,len(cleanCardList[i])-1)]    # getting a random card
             count = deck[i].count(card)    # checks how many of the card are in the deck
       
-            if count < (4-i):    # makes there aren't too many copies of the card
+            if count < (4-i):    # makes sure there aren't too many copies of the card
                 deck[i].append(card)
                 count = 0
             else:    # goes back and gets a new card if there's too many of the chosen one
@@ -380,6 +380,7 @@ limits[3] <= len(cleanCardList[3])*1
 
 def printDeck(deck):
     headers = document.getElementsByClassName("rarityHeader");
+    exportCodeField = document.getElementById("export-code").firstChild.nextSibling.nextSibling
     for i in headers:
         i.style.display = "inline"
     
@@ -402,6 +403,27 @@ def printDeck(deck):
     legendaryCards.textContent = ""
     for i in deck[3]:
         legendaryCards.textContent += f"{i}, "
+
+    print("debug")
+
+    flatDeck = sum(deck, [])
+    deck = []
+
+    while flatDeck:
+        card = flatDeck[0]
+        deck.append((card, flatDeck.count(card)))
+        flatDeck = [item for item in flatDeck if item != card]
+
+    exportCodeField.innerText = json.dumps(dict(deck))
+
+# ----------------------------------------
+
+def copyText(event):
+    copyField = document.getElementById("export-code").firstChild.nextSibling.nextSibling
+    navigator.clipboard.writeText(copyField.textContent)
+    alert("Copied to clipboard")
+
+
 # ----------
 # MAIN STUFF
 # ----------
@@ -413,5 +435,4 @@ lastWikiGet()
 load_blacklist() # loading the blacklist
 
 dropdownInit()
-
 
