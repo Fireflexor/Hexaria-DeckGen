@@ -404,14 +404,16 @@ def printDeck(deck):
     for i in deck[3]:
         legendaryCards.textContent += f"{i}, "
 
-    print("debug")
-
     flatDeck = sum(deck, [])
+    
     deck = []
 
     while flatDeck:
         card = flatDeck[0]
-        deck.append((card, flatDeck.count(card)))
+        if "(Card)" in card:
+            deck.append((card.replace(" (Card)", ""), flatDeck.count(card)))
+        else:
+            deck.append((card, flatDeck.count(card)))
         flatDeck = [item for item in flatDeck if item != card]
 
     exportCodeField.innerText = json.dumps(dict(deck))
