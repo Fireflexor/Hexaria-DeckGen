@@ -423,7 +423,7 @@ def printDeck(deck):
 def copyText(event):
     copyField = document.getElementById("export-code").firstChild.nextSibling.nextSibling
     navigator.clipboard.writeText(copyField.textContent)
-    alert("Copied to clipboard")
+    window.alert("Copied to clipboard")
 
 
 # ----------
@@ -437,4 +437,5 @@ lastWikiGet()
 load_blacklist() # loading the blacklist
 
 dropdownInit()
+
 
